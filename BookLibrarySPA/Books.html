@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <script src="Scripts/jQuery/jquery-3.1.1.js"></script>
+    <script src="Scripts/Application.js"></script>
+    <script src="Scripts/Constants/Constants.js"></script>
+    <script src="Scripts/Errors/HandleAjaxError.js"></script>
+    <script src="Scripts/Zoom.js"></script>
+
+    <!-- Import Views -->
+    <script src="Scripts/Views/ShowCreateBookView.js"></script>
+    <script src="Scripts/Views/ShowErrorBoxView.js"></script>
+    <script src="Scripts/Views/ShowHideMenuLinks.js"></script>
+    <script src="Scripts/Views/ShowHomeView.js"></script>
+    <script src="Scripts/Views/ShowInfoBoxView.js"></script>
+    <script src="Scripts/Views/ShowLoadingBoxView.js"></script>
+    <script src="Scripts/Views/ShowLoginView.js"></script>
+    <script src="Scripts/Views/ShowRegisterView.js"></script>
+    <script src="Scripts/Views/ShowView.js"></script>
+
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="Styles/Books.css">
+
+    <!-- Import Controllers -->
+    <script src="Scripts/Controllers/CreateBookController.js"></script>
+    <script src="Scripts/Controllers/ListBooksController.js"></script>
+    <script src="Scripts/Controllers/LoginUserController.js"></script>
+    <script src="Scripts/Controllers/LogoutUserController.js"></script>
+    <script src="Scripts/Controllers/RegisterUserController.js"></script>
+
+    <!-- Import Models -->
+    <script src="Scripts/Models/CreateBookModel.js"></script>
+    <script src="Scripts/Models/ListBooksModel.js"></script>
+    <script src="Scripts/Models/LoginUserModel.js"></script>
+    <script src="Scripts/Models/RegisterUserModel.js"></script>
+    <!-- Import Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+
+<body onload="startApplication(); zoom();">
+    <center>
+    <header id="menu">
+        <a href="#" id="linkHome">Home</a>
+        <a href="#" id="linkLogin">Login</a>
+        <a href="#" id="linkRegister">Register</a>
+        <a href="#" id="linkListBooks">List Books</a>
+        <a href="#" id="linkCreateBook">Create Book</a>
+        <a href="#" id="linkLogout">Logout</a>
+    </header>
+
+        <section id="loadingBox">Loading ...</section>
+
+        <section id="infoBox">Info</section>
+
+        <section id="errorBox">Error</section>
+
+    <main>
+        <section id="viewHome">
+            <h1>Welcome</h1>
+            Welcome to our book library.
+        </section>
+
+        <section id="viewLogin">
+            <form id="formLogin">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-offset-5 col-md-3">
+                            <div class="form-login">
+                                <h4>Welcome Back</h4>
+                                <input type="text" name="username" class="form-control input-sm chat-input" placeholder="Username" />
+                                </br>
+                                <input type="password" name="passwd" class="form-control input-sm chat-input" placeholder="Password" />
+                                </br>
+                                <div class="wrapper">
+                                    <span class="group-btn">
+                                        <a href="#" id="buttonLoginUser" class="btn btn-primary btn-md">Login <i class="fa fa-sign-in"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section id="viewRegister">
+            <form id="formRegister">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-offset-5 col-md-3">
+                            <div class="form-register">
+                                <h4>Register Here</h4>
+                                <input type="text" name="username" class="form-control input-sm chat-input" placeholder="Username" />
+                                </br>
+                                <input type="password" name="passwd" class="form-control input-sm chat-input" placeholder="Password" />
+                                </br>
+                                <input type="password" name="confirmPasswd" class="form-control input-sm chat-input" placeholder="Confirm Password" />
+                                </br>
+                                <div class="wrapper">
+                                    <span class="group-btn">
+                                        <button id="buttonRegisterUser" class="btn btn-primary btn-md">Register</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section id="viewBooks">
+            <h1>Books</h1>
+            <div id="books">
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>Book title</td>
+                        <td>Book author</td>
+                        <td>Book description</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="viewCreateBook">
+            <h1>Create new book</h1>
+            <form id="formCreateBook">
+                <div>Title:</div>
+                <div><input type="text" name="title" required /></div>
+                <div>Author:</div>
+                <div><input type="text" name="author" required /></div>
+                <div>Description:</div>
+                <div><textarea name="descr"
+                               rows="10" required></textarea></div>
+                <div><input type="button"
+                            id="buttonCreateBook" value="Create" /></div>
+            </form>
+        </section>
+
+        <section id="viewEditBook">
+            <h1>Edit existing book</h1>
+            <form id="formEditBook">
+                <div><input type="hidden" name="id" required /></div>
+                <div>Title:</div>
+                <div><input type="text" name="title" required /></div>
+                <div>Author:</div>
+                <div><input type="text" name="author" required /></div>
+                <div>Description:</div>
+                <div><textarea name="descr" rows="10"
+                               required></textarea></div>
+                <div><input type="button" id="buttonEditBook"
+                            value="Edit" /></div>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>Book Library - Simple SPA Application</footer>
+    </center>
+</body>
+</html>
